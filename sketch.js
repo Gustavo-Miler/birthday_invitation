@@ -23,6 +23,7 @@ let faseCaos = false;
 let botaoRevelado = false;
 
 let somTexto, somImagem, somSpam;
+let iniciou = false;
 
 function preload() {
   imgWindows = loadImage('assets/wallpaper.png');
@@ -52,6 +53,19 @@ function setup() {
 }
 
 function draw() {
+  if (!iniciou) {
+    // Desenha o wallpaper de fundo
+    image(imgWindows, 0, 0, width, height); 
+    
+    // Desenha o pop-up de email bem no centro
+    criarPopupEmailInicial();
+    
+    // O comando "return" faz o p5.js ignorar todo o resto do código abaixo dele.
+    // Ele fica preso desenhando só esse email até a variável "iniciou" virar true.
+    return; 
+  }
+
+
   if (!faseCaos) {
     if (indiceCiclo < roteiro.length) {
       let cicloAtual = roteiro[indiceCiclo];
@@ -226,6 +240,59 @@ function criarPopupSpam() {
   
   // O +10 no Y compensa a barra azul para o texto ficar bem centralizado
   text("SPAM!!!!!!", posX + larguraTotal / 2, posY + alturaTotal / 2 + 10); 
+}
+
+// Função para desenhar o convite/email inicial
+function criarPopupEmailInicial() {
+  let larguraTotal = 350;
+  let alturaTotal = 160;
+  
+  // Calcula o centro exato da tela
+  let posX = (width - larguraTotal) / 2;
+  let posY = (height - alturaTotal) / 2;
+
+  // Sombra e Base da Janela
+  noStroke(); fill(0, 0, 0, 100); rect(posX + 5, posY + 5, larguraTotal, alturaTotal);
+  fill(192); stroke(255); line(posX, posY, posX + larguraTotal, posY); line(posX, posY, posX, posY + alturaTotal);
+  stroke(128); line(posX + larguraTotal, posY, posX + larguraTotal, posY + alturaTotal); line(posX, posY + alturaTotal, posX + larguraTotal, posY + alturaTotal);
+  noStroke(); rect(posX+2, posY+2, larguraTotal-4, alturaTotal-4);
+
+  // Barra de Título
+  fill(0, 0, 128); rect(posX + 3, posY + 3, larguraTotal - 6, 25);
+  fill(255); textSize(12); textStyle(BOLD); textAlign(LEFT, CENTER); text("Novo E-mail Recebido ✉️", posX + 10, posY + 15);
+  fill(192); rect(posX + larguraTotal - 25, posY + 5, 20, 20);
+  fill(0); textAlign(CENTER, CENTER); text("X", posX + larguraTotal - 15, posY + 15);
+
+  // Texto da Mensagem
+  fill(0);
+  textSize(16);
+  textStyle(NORMAL);
+  textAlign(CENTER, CENTER);
+  text("Você tem (1) nova mensagem não lida.\nRemetente Desconhecido.", posX + larguraTotal / 2, posY + 70);
+
+  // Falso Botão de Abrir
+  let larguraBtn = 100;
+  let posXBtn = posX + (larguraTotal - larguraBtn) / 2;
+  
+  fill(192); stroke(255); line(posXBtn, posY + 110, posXBtn + larguraBtn, posY + 110); line(posXBtn, posY + 110, posXBtn, posY + 140);
+  stroke(128); line(posXBtn + larguraBtn, posY + 110, posXBtn + larguraBtn, posY + 140); line(posXBtn, posY + 140, posXBtn + larguraBtn, posY + 140);
+  noStroke(); rect(posXBtn+1, posY+111, larguraBtn-2, 28);
+  
+  fill(0); textStyle(BOLD); text("Ler E-mail", posXBtn + larguraBtn / 2, posY + 125);
+}
+
+// Detecta o clique do mouse em qualquer lugar da tela
+function mousePressed() {
+  if (!iniciou) {
+    // O PULO DO GATO: Esse comando avisa ao navegador que o usuário 
+    // interagiu e pede permissão para liberar as caixas de som!
+    userStartAudio(); 
+    
+    iniciou = true; // Libera a passagem do draw()
+    
+    // Sincroniza o cronômetro para a Fase 1 começar exatamente agora
+    timerIntro = frameCount; 
+  }
 }
 
 // Se redimensionar a janela, reinicia a arte para não quebrar o mapeamento

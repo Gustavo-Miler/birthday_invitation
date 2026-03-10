@@ -7,8 +7,10 @@ let roteiro = [
   { texto: "DIA 14/03", qtdImagens: 2},
   { texto: "20h00", qtdImagens: 1},
   { texto: "BAIÚCA DO MERCADO", qtdImagens: 2},
-  { texto: "VOCÊ ESTÁ CONVIDADO", qtdImagens: 1},
+  { texto: "VOCÊ", qtdImagens: 1},
+  { texto: "ESTÁ CONVIDADO", qtdImagens: 2},
   { texto: "PARA O MEU ANIVERSÁRIO", qtdImagens: 3},
+  { texto: "DE 22 ANOS", qtdImagens: 4},
   { texto: "AFTER SPACE CLUB 22h00", qtdImagens: 1},
   { texto: "FESTA SPAM!!!!!", qtdImagens: 1 }
 ];
@@ -32,10 +34,16 @@ function preload() {
   imgIniciais.push(loadImage('assets/hora2.png'));
   imgIniciais.push(loadImage('assets/local2.png'));
   imgIniciais.push(loadImage('assets/local3.png'));
+  imgIniciais.push(loadImage('assets/voce2.png'));
   imgIniciais.push(loadImage('assets/convite2.png'));
-  imgIniciais.push(loadImage('assets/aniversario2.png'));
+  imgIniciais.push(loadImage('assets/convite3.png'));
+  imgIniciais.push(loadImage('assets/aniversario1.png'));
+  imgIniciais.push(loadImage('assets/aniversario2.jpg'));
   imgIniciais.push(loadImage('assets/aniversario3.png'));
-  imgIniciais.push(loadImage('assets/aniversario4.png'));
+  imgIniciais.push(loadImage('assets/anos1.png'));
+  imgIniciais.push(loadImage('assets/anos2.png'));
+  imgIniciais.push(loadImage('assets/anos3.jpg'));
+  imgIniciais.push(loadImage('assets/anos4.jpg'));
   imgIniciais.push(loadImage('assets/after2.png'));
   imgIniciais.push(loadImage('assets/spam1.jpeg'));
 
@@ -129,7 +137,7 @@ function draw() {
         document.getElementById('popup-final').style.display = 'block';
         
         document.getElementById('btn-aceitar').onclick = function() {
-          window.open('grupo-do-zap', '_blank'); // <-- SEU LINK
+          window.open('https://chat.whatsapp.com/EuGBb4IZXQTIlgkwF3nsAu', '_blank'); // <-- SEU LINK
         };
         
         botaoRevelado = true;
